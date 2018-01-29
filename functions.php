@@ -73,7 +73,7 @@ function sortlist($x) {
 function displayChart($todo) {
 
     $display = 0;
-    $i = 1;
+    $i = 0;
     foreach ($todo as $line) {
         echo "<tr>";
         foreach ($line as $key => $value) {
@@ -119,3 +119,7 @@ function rewrite ($todo) {
     }
     fclose($csvfailas);
 }
+
+
+
+ ?>

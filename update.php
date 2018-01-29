@@ -12,9 +12,11 @@ $todo = getcsvfile();
 
 if (isset($_GET['upd'])) {
     $x = $_GET['upd'];
-    $upd = $todo[$x-1];
+    $upd = $todo[$x];
+    var_dump($upd);
 }
-var_dump($upd);
+
+
 
  ?>
 
@@ -84,44 +86,37 @@ var_dump($upd);
         </select>
     </div>
     <div class="row">
-        <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        <button type="submit" name = "upd" value = "<?php echo $x ?>" class="btn btn-primary pull-right">Submit</button>
         <a href="index.php" type="submit" class="btn btn-primary pull-left">Return</a>
     </div>
 </form>
 
-
-
 <?php
-$upd_title = $_GET['title'];
-$upd_description = $_GET['description'];
-$upd_year = $_GET['year'];
-$upd_month = $_GET['month'];
-$upd_day = $_GET['day'];
-$upd_hour = $_GET['hour'];
-$upd_minutes = $_GET['minutes'];
-$upd_date = mktime($upd_hour, $upd_minutes, 0, $upd_month, $upd_day, $upd_year);
-$itemupdated = 0;
 
-$upd_priority = $_GET['priority'];
-$upd_done = $GET['done'];
+
+
+$upd['title'] = $_GET['title'];
+$upd['description'] = $_GET['description'];
+$new_year = $_GET['year'];
+$new_month = $_GET['month'];
+$new_day = $_GET['day'];
+$new_hour = $_GET['hour'];
+$new_minutes = $_GET['minutes'];
+$upd['deadline'] = mktime($new_hour, $new_minutes, 0, $new_month, $new_day, $new_year);
+$itemupdated = 0;
+$upd['priority'] = $_GET['priority'];
+$upd['done'] = $_GET['done'];
+var_dump($upd);
+echo $x;
+echo "<br>";
 
 
 if ($itemupdated == 0 && isset($_GET['title'])) {
+    $todo[$x] = $upd;
+    rewrite($todo);
 
-    foreach ($todo as $fields=>$values) {
-         if ($fields == $x-1) {
-             $fields['title'] = $upd_title;
-             $fields['description'] = $upd_description;
-             $fields['deadline'] = $upd_date;
-             $fields['priority'] = $upd_priority;
-             $fields['done'] = $upd_done;
-         }
-    }
     var_dump($todo);
-    // rewrite ($todo);
 }
-
-
 
 
 

@@ -1,9 +1,24 @@
-table, tr, td, thead {
+table, tr, td {
     border: 1px solid grey;
     border-collapse: collapse;
 }
 
+table {
+  width: 100%;
+}
 
+p a {
+  color: #1188aa;
+}
+
+h1 a {
+    color: black;
+}
+
+h1 a:hover {
+    text-decoration: none;
+    color: black;
+}
 
 td, th {
     padding: 10px;
@@ -12,9 +27,15 @@ td, th {
 
 th {
     background-color: black;
-    color: yellow;
     font-weight: bold;
     padding: 20px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.date-in-header {
+    text-align: right;
+    padding: 20px 0;
 }
 
 .high {
@@ -30,6 +51,7 @@ form {
 .header {
     background-color: #1188aa;
     padding: 10px;
+    margin-bottom: 20px;
 }
 
 table tr:nth-child(even) {
@@ -41,6 +63,7 @@ table tr:hover {
 }
 
 .checked::after {
-    content: " v ";
-    color: #dedede;
+    content: " \f0d7 ";
+    font-family: "FontAwesome";
+    color: #1188aa;
 }
