@@ -1,0 +1,46 @@
+table, tr, td, thead {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+
+
+
+td, th {
+    padding: 10px;
+    max-width: 400px;
+}
+
+th {
+    background-color: black;
+    color: yellow;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.high {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+}
+
+form {
+    margin: 50px 0;
+}
+
+.header {
+    background-color: #1188aa;
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+
+table tr:hover {
+    background-color: #dedede;
+}
+
+.checked::after {
+    content: " v ";
+    color: #dedede;
+}
