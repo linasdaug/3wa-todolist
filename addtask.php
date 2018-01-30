@@ -72,8 +72,8 @@ include "header.php";
 
 
 <?php
-$new_title = $_GET['title'];
-$new_description = $_GET['description'];
+$new_title = htmlspecialchars($_GET['title']);
+$new_description = htmlspecialchars($_GET['description']);
 $new_year = $_GET['year'];
 $new_month = $_GET['month'];
 $new_day = $_GET['day'];

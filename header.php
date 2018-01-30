@@ -19,7 +19,14 @@
                 <h1><a href="index.php">To do list</a></h1>
               </div>
 
-              <div class="date-in-header col-md-6 pull-right">
+              <div class="date-in-header col-md-3">
+                  <p>Sun rises: <?php echo date_sunrise(time(), SUNFUNCS_RET_STRING, 54.68, 25.28, 90, 1);?></p>
+                  <p>Sun sets: <?php echo date_sunset(time(), SUNFUNCS_RET_STRING, 54.68, 25.28, 90, 1);?> <p>
+
+
+              </div>
+
+              <div class="date-in-header col-md-3 pull-right">
                 <p>Today is:</p>
                 <p><?php echo date("Y-m-d") ?></p>
               </div>

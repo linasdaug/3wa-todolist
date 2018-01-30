@@ -13,9 +13,17 @@
 
         <?php
             include 'header.php';
+            session_start();
+
+
          ?>
 
         <div class="container">
+
+
+            <!-- LENTELĖS GALVA -->
+
+
             <table>
             <tr>
                 <th id="th0"><a href="view.php?param=0">Title</a></th>
@@ -28,30 +36,93 @@
         <?php
         include 'functions.php';
         $todo = getcsvfile();
-
+        $count = count($todo);
+        $perPage = 10;
+        $pageCount = ceil($count / $perPage);
         $x = 10;
-        $y = 10;
+
+
+        //LENTELĖS RŪŠIAVIMAS
+
         if (isset($_GET['param'])) {
             $x = $_GET['param'];
-            $todo = sortlist($x);
-            echo "<script>document.getElementById('th".$x."').classList.add('checked')</script>";
-            echo "<script>document.getElementById('th".$y."').classList.add('checked')</script>";
-            $y = $x;
+            $todo = sortlist($x, $toggle[$x]);
+            rewrite($todo);
+
+            if ($toggle[$x] == 0) {
+                echo "<script>document.getElementById('th".$x."').classList.add('checked')</script>";
+                $toggle[$x] = 1;
+
+            } else if ($toggle[$x] == 1) {
+                echo "<script>document.getElementById('th".$x."').classList.remove('checked')</script>";
+                echo "<script>document.getElementById('th".$x."').classList.add('checked-reverse')</script>";
+                echo "Toglas tesiasi";
+                $toggle[$x] = 0;
+            }
         }
+
+        //EILUČIŲ TRYNIMAS
 
 
         if (isset($_GET['del'])) {
             $x = $_GET['del'];
+            $_SESSION['message'] = 'Item deleted';
             unset($todo[$x]);
             rewrite($todo);
+        };
+
+        ?>
+        <?php if (isset($_SESSION['message'])):  ?>
+            <div class="alert alert-success">
+                <?php echo $_SESSION['message'] ?>
+            </div>
+                <?php unset($_SESSION['message']) ?>
+        <?php endif ?>
+
+
+
+
+
+        <!-- //LENTELĖS IŠVEDIMAS -->
+
+
+        <?php
+
+        if (isset($_GET['pageNum'])){
+            $pageNum = $_GET['pageNum'];
+        } else {
+            $pageNum = 1;
         }
 
 
-        displayChart($todo);
+
+        $from = $perPage * ($pageNum-1);
+
+        if (($from + $perPage) > count($todo)) {
+            $till = count($todo) - 1;
+        } else {
+            $till = $from + $perPage - 1;
+        }
+
+
+        displayChart($todo, $from, $till);
+
 
          ?>
-         <br>
-         <a href="addtask.php" class="btn btn-info" type="button" name="button">Add new item</a>
+
+         <div class="row">
+             <div class="col-md-2 pull-left">
+                <ul class="pagination">
+                <?php for ($i=1; $i<=$pageCount; $i++): ?>
+                    <li <?php if ($i == $pageNum) {echo 'class="active"';}?>><a class="page-link" href="view.php?pageNum=<?php echo $i?>"><?php echo $i ?></a></li>
+                <?php endfor; ?>
+                </ul>
+            </div>
+            <div class="addtask col-md-2 pull-right">
+                <a href="addtask.php" class="btn btn-primary" type="button" name="button">Add new item</a>
+            </div>
+        </div>
+
 
 
 
